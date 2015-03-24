@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>litList</title>
+		<link rel="stylesheet" href="animate.css-master/animate.min.css">
+		<link href='http://fonts.googleapis.com/css?family=Quicksand|Maven+Pro' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/responsive.css">
+	</head>
+
+	<body>
+		<header>
+			<h1>LitList</h1>
+			<a class="logIn" href="">Log In</a>
+			<a class="signUp" href="">Sign Up!</a>
+		</header>
+		<div id="foreground">
+			<nav class="topNav">
+				<a class="selected" href="index.html">My Lists</a>
+				<a href="index.html">Progress</a>
+				<a href="index.html">Profile</a>
+				<a class="lastTopNav" href="index.html">About</a>
+			</nav>
+			<ul id="toRead">	<!-- to read list -->
+					<li class="listHeader">
+						<p><a role="button" class="fullList">To Read</a><button id="addTitle" title="Add Title" type="button">+</button></p>
+					</li>
+				<li class="bookToRead firstBook">
+					<p id="listEmptyText">Your list is empty!</p>
+				</li>
+			</ul>
+			<ul id="booksRead">	<!-- books read list -->
+					<li class="listHeader"><p><a role="button" class="fullList">Done Reading</a></p></li>
+				<li class="bookToRead firstBook">
+					<p id="listEmptyText">Your list is empty!</p>
+				</li>
+			</ul>
+			<script src="http://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="js/mainPage.js" type="text/javascript" charset="utf-8"></script>
+		</div>
+	</body>
+	
+	<footer></footer>
+
+</html>
+
+
+
+			

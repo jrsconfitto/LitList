@@ -1,0 +1,286 @@
+
+/* basic styles */
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background-color: #ffeead;
+	margin: 0;
+	font-size: 1em;
+}
+
+header {
+	background-color: #88D8B0;
+	width: 100%;
+	border-bottom: 5px solid #ffcc5c;
+	position: relative;
+}
+
+header h1 {
+	width: 95%;
+	height: 50px;
+	margin: 0;
+	padding: 5px 0 11px 15px;
+	font-size: 2.8125em;
+	font-family: 'Quicksand', sans-serif;
+}
+
+header a {
+	text-decoration: none;
+	font-family: 'Quicksand', sans-serif;
+	position: absolute;
+}
+
+.logIn {
+	right: 105px;
+	bottom: 20px;
+	padding-right: 20px;
+	border-right: 2px solid;
+	margin-right: 3px;
+}
+
+.signUp {
+	right: 20px;
+	bottom: 20px;
+}
+
+.topNav {
+	margin: 0 auto 5px;
+	height: 40px;
+	font-size: 0;	 /* to remove space between achors */
+	text-align: center;
+	background-color: #ff6f69;
+	box-shadow-bottom: 0px 2px 4px #242424;
+    -moz-box-shadow: 0px 2px 4px #242424;
+    -webkit-box-shadow: 0px 2px 4px #242424;
+}
+
+.topNav a {
+	display: inline-block;
+	padding: 9px 12px 13px;
+	text-decoration: none;
+	height: 18px;
+	font-size: 15px;
+	font-family: 'Maven Pro', sans-serif;
+	color: #fff;
+	border-left: 1px solid #000;
+	transition: background-color 0.5s;
+}
+
+.lastTopNav {
+	border-right: 1px solid #000;
+}
+
+.selected {
+	background-color: #FF928D;
+}
+
+.topNav a:hover {
+	background-color: #FF928D;
+	transition: 0.5s;
+}
+
+/*-----------------------
+	BOOK LISTS
+------------------------*/
+
+#toRead,
+#booksRead {
+	width: 85%;
+	margin: 60px auto 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.listHeader {
+	background-color: #bdbdbd; 	/* <li>s below header can be #e5e5e5 */
+	border-radius: 5px 5px 0 0;
+	border-top: 1px solid #a3a3a3;
+	border-left: 1px solid #a3a3a3;
+	border-right: 1px solid #a3a3a3;
+	box-shadow-bottom: 0px 1px 3px #242424;
+	-moz-box-shadow: 0px 1px 3px #242424;
+    -webkit-box-shadow: 0px 1px 3px #242424;
+}
+
+.listHeader p {
+	font-family: 'Quicksand';
+	font-size: 1.1em;
+	margin-top: 15px;
+	margin-bottom: 0;
+	padding-left: 15px;
+	position: relative;
+}
+
+.listHeader button {
+	margin: 0 auto;
+	position: absolute;
+	right: 18px;
+	top: -4px;
+}
+
+li.firstBook {
+	margin: 2px auto 0;
+	border: none;
+	position: relative;
+}
+
+#listEmptyText {
+	text-align: center;
+	color: rgba(0,0,0,0.5);
+}
+
+.bookToRead {
+	padding-top: 4px;
+	background-color: #e5e5e5;
+	border-top: 1px solid #bdbdbd;
+	position: relative;
+}
+
+.bookToRead p {
+	font-family: 'Maven Pro';
+	font-size: .85em;
+	margin: 0;
+	padding: 10px 0 10px 15px;
+	position: relative;
+}
+
+.readIcon, .doneReadingIcon{
+	position: absolute;
+	right: 11px;
+	bottom: 5px;
+	background-color: #bdbdbd;
+	border-style: none;
+	border-radius: 3px;
+}
+
+.readIcon img {
+	width:20px;
+	height: 20px;
+	padding-top: 4px;
+}
+
+.doneReadingIcon img {
+  width: 17px;
+  height: 22px;
+  padding-top: 4px;
+}
+
+.removeIcon {
+	position: absolute;
+	right: 50px;
+	bottom: 5px;
+	border-style: none;
+	
+}
+
+.removeIcon img {
+	width:20px;
+	height: 20px;
+	margin-bottom: 1px;
+}
+
+.doneReadingIcon:focus,.readIcon:focus {
+	background-color: #fff;
+	outline: 0;
+}
+
+.removeIcon:focus {
+	background-color: #fff;
+	outline: 0;
+}
+
+
+/*-----------------------
+	FOOTER
+------------------------*/
+
+footer {
+	width: 100%;
+	height: 12px;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	background-color: #ffcc5c;
+	border-top: 5px solid #ff6f69;
+	border-bottom: 20px solid #88d8b0;
+}
+
+
+/*-----------------------
+	'ADD TITLE' OVERLAY 
+------------------------*/
+.overlay {
+  background: rgba(0,0,0, .8);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  text-align: center;
+}
+
+#addTitleBox {
+	background-color: #fff;
+	width: 35%;
+	height: 375px;
+	max-width: 345px;
+	margin: 7% auto 0;
+	border-radius: 10px;
+	font-family: 'Maven Pro';
+}
+
+#addTitleBox h1 {
+	padding-top: 50px;
+	margin-bottom: 50px;
+}
+
+#addTitleBox input, label {
+	display: block;
+	margin-left: 25%;
+	text-align: left;
+}
+
+#addTitleBox input {
+	width: 50%;
+	margin: 10px 0 20px 25%;
+}
+
+/* add button */
+.add {
+	display: block;
+	margin-left: 25%;
+}
+
+/*-----------------------
+	SINGLE LIST OVERLAY
+------------------------*/
+
+#foreground .overlay ul {
+	width: 90%;
+	margin: 120px auto 0;
+	padding: 0;
+  	float: none;
+  	max-width: none;
+}
+
+/*#searchBar {
+	display: block;
+	width: 225px;
+	margin: 30px auto 0;
+}*/
+
+/*#foreground {
+	width: 80%;
+	height: 100%;
+	max-width: 1150px;
+	margin: 0 auto;
+	background-color: #fff;
+	z-index: 1;
+}*/
