@@ -1,8 +1,7 @@
-// JAVASCRIPT
-//-----------
+//================VARIABLES===============================================
 
 var emptyListFiller =
-	'<li class="bookToRead firstBook">'+
+	'<li class="empty">'+
 		'<p id="listEmptyText">Your list is empty!</p>'+
 	'</li>';
 
@@ -11,9 +10,6 @@ var doneReadingButton = '<button class="doneReadingIcon" title="Mark As Read" ty
 var removeButton = '<button class="removeIcon" title="Remove From List" type="button"><img src="img/remove-icon.png"></button>';
 var $overlay = $('<div class="overlay"></div>');
 var $overlay2 = $('<div class="overlay"><ul></ul></div>');
-
-var $readingList = $('#toRead');
-var $doneList = $('#booksRead');
 
 var $addTitleBox = $(
 	'<div id="addTitleBox">'+
@@ -27,13 +23,15 @@ var $addTitleBox = $(
 		'<button class="add">Add</button>'+
 	'</div>');
 
+//================FUNCTIONS===============================================
+
 // function to add book to To Read list
 var addBook = function(addedInput) {
 	addedInput += '<p>' + $('#title').val() + '  --' + $('#author').val() + '</p>';
 	addedInput += doneReadingButton;
 	addedInput += removeButton;
 	addedInput += '</li>';
-	$readingList.append(addedInput);
+	$('#toRead').append(addedInput);
 
 	$('.overlay').fadeOut(200, function() {
 	// Animation complete.
@@ -43,31 +41,16 @@ var addBook = function(addedInput) {
 //function to move a book from one list to the other
 var switchList = function(book, oldList, newList) {
 	//if new list is empty
-	if (newList.children('li').length === 2) {
+	if (newList.children('li').is('.empty')) {
 		//remove 'empty list' line
-		newList.children('li')[1].remove();
-		//add dud li to compensate for removed li so length doesn't read 2 (empty) on next add
-		newList.append('<li id="dud"></li>');
+		newList.children('li').remove('.empty');
 	}
 	//remove book from its list
 	book.remove();
 	//if old list is now empty
-	if (oldList.children('li').length === 2) {
+	if (oldList.children('li').length === 1) {
 	  	//add empty list filler and remove dud li
 		oldList.append(emptyListFiller);
-		oldList.children('#dud').remove();
-	//or if switched book has firstBook class
-	} else if (book.is('.firstBook')) {
-	  	//give firstBook class to first item on old list
-		oldList.children('li').eq(2).addClass('firstBook');
-	}
-	//if new list is empty and switched book does not have firstBook class
-	if (newList.children('li').length === 2 && book.is('.firstBook') === false) {
-		//add first class to book
-		book.addClass('firstBook');
-	//or if new list is not empty and switched book has firstBook class
-	} else if (newList.children('li').length > 2 && book.is('.firstBook') === true) {
-		book.removeClass('firstBook');
 	}
 	//if new list is To Read then append done reading button, add book to list, and remove read button
 	if (newList.is('#toRead')) {
@@ -85,12 +68,8 @@ var switchList = function(book, oldList, newList) {
 // function to remove book from its list
 var deleteBook = function(book, currentList) {
 	book.remove();
-	if (currentList.children('li').length === 2) {
+	if (currentList.children('li').length === 1) {
 		currentList.append(emptyListFiller);
-		currentList.children('#dud').remove();
-	}
-	if(book.is('.firstBook') && currentList.children('li').length !== 2) {
-		currentList.children('li').eq(2).addClass('firstBook');
 	}
 }
 
@@ -109,6 +88,21 @@ $(document).on('click', '.fullList', function() {
   	});
 });
 
+//keep overlay up unless user clicks outside box
+$(document).click(function(event) {
+    if($(event.target).attr('class') === 'overlay') {
+    	//if overlay has ul child
+    	if ($('.overlay').children().is('ul')) {
+    		var list = '#' + $('.overlay').children().attr('id');
+    		//clone ul, get id and replace foreground ul with cloned ul
+    		$('#foreground ' + list).replaceWith($('.overlay ' + list).clone());
+    	}
+        $('.overlay').fadeOut(200, function() {
+    	// Animation complete.
+  		});
+  	}
+});
+
 $(document).on('click', '#addTitle', function() {
 	$overlay.append($addTitleBox);
 	$overlay.fadeIn(200, function() {
@@ -119,17 +113,14 @@ $(document).on('click', '#addTitle', function() {
 
 // add <li> to "Read" list when clicking "Add" button
 $(document).on('click', '.add', function() {
-	if($readingList.children('li').length === 2 && $('#title').val() !== "" && $('#author').val() !== "") {
+	if($('#toRead').children('li').is('.empty') && $('#title').val() !== "" && $('#author').val() !== "") {
 		//remove 'empty list' line
-		$readingList.children('li')[1].remove();
-		//add empty li to compensate for removed li so length doesn't read 2 on next add
-		$readingList.append('<li id="dud"></li>');
-		//add first book with 'firstBook' ID
-		var addedInput = '<li class="bookToRead firstBook">';
+		$('#toRead').children('li').remove('.empty');
+		//add book with 'book' ID
+		var addedInput = '<li class="book">';
 		addBook(addedInput);
-
-	} else if($('#title').val() !== "" && $('#author').val() !== "") {
-		var addedInput = '<li class="bookToRead">';
+	} else if($('#title').val() !== "" && $('#author').val() !== "") {		
+		var addedInput = '<li class="book">';
 		addBook(addedInput);
 	} else {
 		alert("please enter a Title and Author");
@@ -139,47 +130,41 @@ $(document).on('click', '.add', function() {
 	$('#author').val('');
 });
 
-//keep overlay up unless user clicks outside box
-$(document).click(function(event) {
-    if($(event.target).attr('class') === 'overlay') {
-
-    	//if overlay has ul child
-    	if ($('.overlay').children().is('ul')) {
-    		var list = '#' + $('.overlay').children().attr('id');
-    		//clone ul, get id and replace foreground ul with cloned ul
-    		$('#foreground ' + list).replaceWith($('.overlay ' + list).clone());
-    	} 
-        $('.overlay').fadeOut(200, function() {
-    	// Animation complete.
-  		});
-  	}
-});
-
 $(document).on('click', '.doneReadingIcon', function() {
 	var book = $(this).parent();
-	switchList(book, $readingList, $doneList);
+	if($(this).parent().parent().parent().attr('class') === 'overlay') {
+		switchList(book, $('.overlay #toRead'), $('#booksRead'));
+	} else {
+		switchList(book, $('#toRead'), $('#booksRead'));
+	}
 });
 
 $(document).on('click', '.readIcon', function(){
 	var book = $(this).parent();
-	switchList(book, $doneList, $readingList);
+	if($(this).parent().parent().parent().attr('class') === 'overlay') {
+		switchList(book, $('.overlay #booksRead'), $('#toRead'));
+	} else {
+		switchList(book, $('#booksRead'), $('#toRead'));
+	}
 });
 
 $(document).on('click', '.removeIcon', function() {
 	var book = $(this).parent();
-	var list = $('#' + book.parent().attr('id'));
+	//if button is from 'overlay' div
+	if($(this).parent().parent().parent().attr('class') === 'overlay') {
+	  //add overlay class to list var
+	  var list = $('.overlay #' + book.parent().attr('id'));
+	} else {
+	  //else create list var without overlay class
+	  var list = $('#' + book.parent().attr('id'));
+	}
 	deleteBook(book, list);
 });
 
 
-
-//
 
 //create an anchor on both list headers that brings up an overlay with just that list fully
 //expanded
 
 //create a 5 book limit for default view and add a "more titles" button at bottom of each
 //list to expand it
-
-// DESIGN
-//--------
