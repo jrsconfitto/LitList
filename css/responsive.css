@@ -27,6 +27,11 @@
 		position: absolute;
 	}
 
+	.mobile-menu {
+		background-color: blue;
+		visibility: hidden;
+	}
+
 	.logIn {
 		right: 105px;
 		bottom: 20px;

@@ -25,11 +25,27 @@ header {
 
 header h1 {
 	width: 95%;
-	height: 50px;
+	height: 51px;
 	margin: 0;
 	padding: 5px 0 11px 15px;
 	font-size: 2.8125em;
 	font-family: 'Quicksand', sans-serif;
+}
+
+.mobile-menu {
+	background-color: #ff6f69;
+	position: absolute;
+	height: 50px;
+	right: 20px;
+	top: 12px;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.mobile-menu img {
+	width: 46px;
+	height: 50px;
 }
 
 header a {
@@ -107,7 +123,7 @@ ul li:nth-child(2) {
 	position: relative;
 }
 
-.readIcon, .doneReadingIcon{
+.readIcon, .doneReadingIcon {
 	position: absolute;
 	right: 11px;
 	bottom: 5px;
