@@ -1,3 +1,4 @@
+
 //================VARIABLES===============================================
 
 var emptyListFiller =
@@ -160,11 +161,6 @@ $(document).on('click', '.removeIcon', function() {
 	}
 	deleteBook(book, list);
 });
-
-
-
-//create an anchor on both list headers that brings up an overlay with just that list fully
-//expanded
 
 //create a 5 book limit for default view and add a "more titles" button at bottom of each
 //list to expand it
