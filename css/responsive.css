@@ -27,8 +27,7 @@
 		position: absolute;
 	}
 
-	.mobile-menu {
-		background-color: blue;
+	.mobileMenuIcon {
 		visibility: hidden;
 	}
 

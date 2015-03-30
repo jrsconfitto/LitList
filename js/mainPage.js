@@ -11,14 +11,20 @@ var doneReadingButton = '<button class="doneReadingIcon" title="Mark As Read" ty
 var removeButton = '<button class="removeIcon" title="Remove From List" type="button"><img src="img/remove-icon.png"></button>';
 var $overlay = $('<div class="overlay"></div>');
 var $overlay2 = $('<div class="overlay"><ul></ul></div>');
+var $overlay3 = $('<div class="overlay"></div>');
+var $mobileMenu = $(
+	'<nav id="mobileNav" class="animated slideInRight">'+
+		'<a class="selected" href="index.html">My Lists</a>'+
+		'<a href="index.html">Progress</a>'+
+		'<a href="index.html">Profile</a>'+
+		'<a href="index.html">About</a>'+
+	'</nav>');
 
 var $addTitleBox = $(
 	'<div id="addTitleBox">'+
 		'<h1>Add Title</h1>'+
-
 		'<label for="title">Title:</label>'+
 		'<input type="text" id="title" name="book_title">'+
-
 		'<label for="author">Author:</label>'+
 		'<input type="text" id="author" name="book_author">'+
 		'<button class="add">Add</button>'+
@@ -77,16 +83,21 @@ var deleteBook = function(book, currentList) {
 //=========================================================================================
 
 //insert overlay divs after Done Reading ul
-$('#booksRead').after($overlay);
+$('#foreground').after($overlay);
 $('#booksRead').after($overlay2);
+$('#foreground').after($overlay3);
+
+//when mobile menu icon is clicked
+$(document).on('click', '.mobileMenuIcon', function() {
+	$overlay3.fadeIn(200, function() {/*animation complete*/});
+	$overlay3.append($mobileMenu);
+});
 
 // when list header name is clicked
 $(document).on('click', '.fullList', function() {
 	// clone the ul of that list and append it to overlay2 div
 	$overlay2.children('ul').replaceWith($(this).parent().parent().parent().clone());
-	$overlay2.fadeIn(200, function() {
-    	// Animation complete.
-  	});
+	$overlay2.fadeIn(200, function() {/* Animation complete */});
 });
 
 //keep overlay up unless user clicks outside box
@@ -98,17 +109,13 @@ $(document).click(function(event) {
     		//clone ul, get id and replace foreground ul with cloned ul
     		$('#foreground ' + list).replaceWith($('.overlay ' + list).clone());
     	}
-        $('.overlay').fadeOut(200, function() {
-    	// Animation complete.
-  		});
+        $('.overlay').fadeOut(200, function() {/* Animation complete */});
   	}
 });
 
 $(document).on('click', '#addTitle', function() {
 	$overlay.append($addTitleBox);
-	$overlay.fadeIn(200, function() {
-    	// Animation complete.
-  	});
+	$overlay.fadeIn(200, function() {/* Animation complete */});
   	$('#title').focus();
 });
 
