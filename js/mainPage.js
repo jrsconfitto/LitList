@@ -1,4 +1,3 @@
-
 //================VARIABLES===============================================
 
 var emptyListFiller =
@@ -14,10 +13,12 @@ var $overlay2 = $('<div class="overlay"><ul></ul></div>');
 var $overlay3 = $('<div class="overlay"></div>');
 var $mobileMenu = $(
 	'<nav id="mobileNav" class="animated slideInRight">'+
-		'<a class="selected" href="index.html">My Lists</a>'+
-		'<a href="index.html">Progress</a>'+
-		'<a href="index.html">Profile</a>'+
-		'<a href="index.html">About</a>'+
+		'<ul>'+
+			'<li id="firstMobileNav" class="mobileSelected"><a href="index.html">My Lists</a></li>'+
+			'<li><a href="index.html">Progress</a></li>'+
+			'<li><a href="index.html">Profile</a></li>'+
+			'<li id="lastMobileNav"><a href="index.html">About</a></li>'+
+		'</ul>'+
 	'</nav>');
 
 var $addTitleBox = $(
@@ -83,9 +84,9 @@ var deleteBook = function(book, currentList) {
 //=========================================================================================
 
 //insert overlay divs after Done Reading ul
-$('#foreground').after($overlay);
+$(document.body).after($overlay);
 $('#booksRead').after($overlay2);
-$('#foreground').after($overlay3);
+$(document.body).after($overlay3);
 
 //when mobile menu icon is clicked
 $(document).on('click', '.mobileMenuIcon', function() {
