@@ -5,12 +5,17 @@ var emptyListFiller =
 		'<p id="listEmptyText">Your list is empty!</p>'+
 	'</li>';
 
+var covers = [];
+
 var readButton = '<button class="readIcon" title="Mark As Reading" type="button"><img src="img/reading.png"></button>';
 var doneReadingButton = '<button class="doneReadingIcon" title="Mark As Read" type="button"><img src="img/doneReading.png"></button>';
 var removeButton = '<button class="removeIcon" title="Remove From List" type="button"><img src="img/remove-icon.png"></button>';
+
 var $overlay = $('<div class="overlay"></div>');
 var $overlay2 = $('<div class="overlay"><ul></ul></div>');
 var $overlay3 = $('<div class="overlay"></div>');
+var $coverOverlay = $('<div id="covers" class="overlay"><div id="coverWrapper"></div></div>');
+
 var $mobileMenu = $(
 	'<nav id="mobileNav" class="animated slideInRight">'+
 		'<ul>'+
@@ -87,6 +92,7 @@ var deleteBook = function(book, currentList) {
 $(document.body).after($overlay);
 $('#booksRead').after($overlay2);
 $(document.body).after($overlay3);
+$(document.body).after($coverOverlay);
 
 //when mobile menu icon is clicked
 $(document).on('click', '.mobileMenuIcon', function() {
@@ -105,11 +111,11 @@ $(document).on('click', '.fullList', function() {
 $(document).click(function(event) {
     if($(event.target).attr('class') === 'overlay') {
     	//if overlay has ul child
-    	if ($('.overlay').children().is('ul')) {
+    	if ($(event.target).children().is('ul')) {
     		var list = '#' + $('.overlay').children().attr('id');
     		//clone ul, get id and replace foreground ul with cloned ul
     		$('#foreground ' + list).replaceWith($('.overlay ' + list).clone());
-    	}
+    	} 
         $('.overlay').fadeOut(200, function() {/* Animation complete */});
   	}
 });
@@ -120,8 +126,36 @@ $(document).on('click', '#addTitle', function() {
   	$('#title').focus();
 });
 
-// add <li> to "Read" list when clicking "Add" button
+// retrieve book covers from web for user to select and add book (<li>) to "Read" list
 $(document).on('click', '.add', function() {
+	//function to grab book cover of added book from Google Books API
+  	$(document).ready(function() {
+  		var title = $('#title').val();
+		var author = $('#author').val();
+	    // API URI with inputted values
+	    var booksAPI = "https://www.googleapis.com/books/v1/volumes?q=" + title + "+inauthor:" + author;
+	    var Options = {
+	      format: "json"
+	  	}
+	  	//add overaly div and append book cover images in proper tags
+	    function displayCovers(data) {
+	    	for (i=0, j=6; i < j; i++) {
+	    		//try block in case item has no volumeInfo has no imageLinks
+	    		try {
+	    			$('#coverWrapper').append('<button title="choose cover" type="button"><img src=' + data.items[i].volumeInfo.imageLinks.thumbnail + '></button>');
+	    		} catch(e) {j+=1}
+	    		if (data.items[data.items.length - 1] === data.items[i]) {
+	    			break;
+	    		}
+	    	}
+	    	$('#coverWrapper').append('<button id="noCover" type="button">No Cover</button>');
+	    	$('#covers').fadeIn(200, function(){/*animation complete*/});
+	    }
+	    //jQuery AJAX call to retrieve JSON from API
+	    $.getJSON(booksAPI, Options, displayCovers);
+	});
+
+  	//add book to "Read" list
 	if($('#toRead').children('li').is('.empty') && $('#title').val() !== "" && $('#author').val() !== "") {
 		//remove 'empty list' line
 		$('#toRead').children('li').remove('.empty');
@@ -137,6 +171,12 @@ $(document).on('click', '.add', function() {
 
   	$('#title').val('');
 	$('#author').val('');
+});
+
+//event listener on book cover click
+$(document).on('click', '#coverWrapper button', function(){
+	$('#coverWrapper').children().remove();
+	$('#covers').fadeOut(200, function(){/*animation complete*/});
 });
 
 $(document).on('click', '.doneReadingIcon', function() {
@@ -169,6 +209,17 @@ $(document).on('click', '.removeIcon', function() {
 	}
 	deleteBook(book, list);
 });
+
+
+
+//grab author name and title from API response and place in user's list title and author fields
+
+//create grid for user to select which cover they want (or "no cover" option)
+	//selected cover will be resized and placed to the left of the list slot (make <li>s taller)
+
+//revamp color scheme
+
+//make an about page
 
 //create a 5 book limit for default view and add a "more titles" button at bottom of each
 //list to expand it
