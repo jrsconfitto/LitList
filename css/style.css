@@ -1,15 +1,16 @@
+/*-----------------------
+	BASIC STYLES
+------------------------*/
 
-/* basic styles */
-
-html, body {
-	height: 100%;
-	width: 100%;
-}
 
 body {
-	background-color: #ffeead;
 	margin: 0;
+	background-color: #fff5ce;
 	font-size: 1em;
+}
+
+.noScroll {
+	overflow: hidden;
 }
 
 header {
@@ -121,6 +122,14 @@ header a {
 	list-style-type: none;
 }
 
+#booksRead li {
+	opacity: 0.75;
+}
+
+#booksRead .listHeader {
+	opacity: 1;
+}
+
 .listHeader {
 	background-color: #bdbdbd; 	/* <li>s below header can be #e5e5e5 */
 	border-radius: 5px 5px 0 0;
@@ -133,7 +142,7 @@ header a {
 }
 
 .listHeader p {
-	font-family: 'Quicksand';
+	font-family: 'Quicksand', sans-serif;
 	font-size: 1.1em;
 	margin-top: 15px;
 	margin-bottom: 0;
@@ -161,7 +170,7 @@ ul li:nth-child(2) {
 
 .book,
 .empty {
-	padding-top: 4px;
+	padding: 2px 0 1px;
 	background-color: #e5e5e5;
 	border-top: 1px solid #bdbdbd;
 	position: relative;
@@ -169,45 +178,56 @@ ul li:nth-child(2) {
 
 .book p,
 .empty p {
-	font-family: 'Maven Pro';
-	font-size: .85em;
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 1.1em;
 	margin: 0;
-	padding: 10px 0 10px 15px;
+	padding: 7px 0 7px 15px;
 	position: relative;
+}
+
+.book p {
+	width: 75%;
 }
 
 .readIcon, .doneReadingIcon {
 	position: absolute;
-	right: 11px;
-	bottom: 5px;
+	right: 14px;
+	bottom: 16px;
 	background-color: #bdbdbd;
 	border-style: none;
 	border-radius: 3px;
 }
 
+.inListCover {
+  margin: 0 30px 0 2px;
+  height: 69px;
+  width: 50px;
+  float: left;
+}
+
 .readIcon img {
-	width:20px;
-	height: 20px;
+	width:30px;
+	height: 30px;
 	padding-top: 4px;
 }
 
 .doneReadingIcon img {
-  width: 17px;
-  height: 22px;
+  width: 24px;
+  height: 30px;
   padding-top: 4px;
 }
 
 .removeIcon {
 	position: absolute;
-	right: 50px;
-	bottom: 5px;
+	right: 57px;
+	bottom: 17px;
 	border-style: none;
-	
+	background-color: #e5e5e5;
 }
 
 .removeIcon img {
-	width:20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 	margin-bottom: 1px;
 }
 
@@ -226,30 +246,31 @@ ul li:nth-child(2) {
 	FOOTER
 ------------------------*/
 
+/*footer {*/
+/*	width: 100%;*/
+/*	height: 12px;*/
+/*	margin: 0;*/
+/*	padding: 0;*/
+/*	background-color: #ffcc5c;*/
+/*	border-top: 5px solid #ff6f69;*/
+/*	border-bottom: 20px solid #88d8b0;*/
+/*}*/
+
 footer {
-	width: 100%;
-	height: 12px;
-	margin: 0;
-	padding: 0;
-	position: fixed;
-	left: 0px;
-	bottom: 0px;
-	background-color: #ffcc5c;
-	border-top: 5px solid #ff6f69;
-	border-bottom: 20px solid #88d8b0;
+  margin: 150px 0 0;
 }
 
 
 /*-----------------------
-	'ADD TITLE' OVERLAY 
+	'ADD TITLE' OVERLAY
 ------------------------*/
 .overlay {
-  background: rgba(0,0,0, .8);
-  width: 100%;
-  height: 100%;
+  background: rgba(0,0,0, 0.8);
   position: absolute;
   top: 0;
   left: 0;
+  height: 100%;
+  width: 100%;
   display: none;
   text-align: center;
 }
@@ -261,7 +282,7 @@ footer {
 	max-width: 345px;
 	margin: 7% auto 0;
 	border-radius: 10px;
-	font-family: 'Maven Pro';
+	font-family: 'Maven Pro' sans-serif;
 }
 
 #addTitleBox h1 {
@@ -302,7 +323,13 @@ footer {
 	COVERS OVERLAY
 ------------------------*/
 
-#covers button {
+#covers {
+	text-align: center;
+	
+}
+
+#coverWrapper button {
+	display: inline-block;
 	margin: 30px 30px;
 	padding: 0;
 	border: none;
@@ -313,30 +340,19 @@ footer {
 	height: 196px;
 }
 
-#noCover {
-	width: 168px;
+#covers #noCover {
+	display: block;
+	margin: 40px auto 100px;
+	width: 120px;
 	height: 45px;
 	font-size: 1.2em;
+	font-family: 'Maven Pro', sans-serif;
+	border-radius: 8px;
 }
 
 #coverWrapper {
-	padding: 100px 0;
-	width:100%;
+	width: 100%;
 	height: 100%;
+	padding: 100px 0 0;
+	overflow-y: auto;
 }
-
-
-/*#searchBar {
-	display: block;
-	width: 225px;
-	margin: 30px auto 0;
-}*/
-
-/*#foreground {
-	width: 80%;
-	height: 100%;
-	max-width: 1150px;
-	margin: 0 auto;
-	background-color: #fff;
-	z-index: 1;
-}*/
