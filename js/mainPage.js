@@ -84,6 +84,13 @@ var deleteBook = function(book, currentList) {
 	}
 }
 
+var clearVals = function() {
+	$('#title').val('');
+	$('#author').val('');
+	$('#coverWrapper').children().remove();
+	$('body').removeClass('noScroll');
+}
+
 //=========================================================================================
 
 //insert overlay divs after Done Reading ul
@@ -102,6 +109,7 @@ $(document).on('click', '.mobileMenuIcon', function() {
 $(document).on('click', '.fullList', function() {
 	// clone the ul of that list and append it to overlay2 div
 	$overlay2.children('ul').replaceWith($(this).parent().parent().parent().clone());
+	$('body').addClass('noScroll');
 	$overlay2.fadeIn(200, function() {/* Animation complete */});
 });
 
@@ -115,6 +123,7 @@ $(document).click(function(event) {
     		$('#foreground ' + list).replaceWith($('.overlay ' + list).clone());
     	}
         $('.overlay').fadeOut(200, function() {/* Animation complete */});
+        $('body').removeClass('noScroll');
   	}
 });
 
@@ -130,38 +139,43 @@ $(document).on('click', '.add', function() {
 	//function to grab book cover of added book from Google Books API
   	$overlay.fadeOut(200, function() {/* Animation complete */});
   	$(document).ready(function() {
-  	  if ($('#title').val() === "" || $('#author').val() === "") {
-	  	alert("please enter a Title and Author");
-	  } else {
-  		var title = $('#title').val();
+		if ($('#title').val() === "" || $('#author').val() === "") {
+			alert("please enter a Title and Author");
+		} else {
+			var title = $('#title').val();
 		  var author = $('#author').val();
-	    // API URI with inputted values
-	    var booksAPI = "https://www.googleapis.com/books/v1/volumes?q=" + title + "+inauthor:" + author;
-	    var Options = {
-	      format: "json"
-	  	}
-	  	//add overaly div and append book cover images in proper tags
-	    function displayCovers(data) {
-	    	for (i=0, j=6; i < j; i++) {
-	    		//try block in case item has no volumeInfo has no imageLinks
-	    		try {
-	    			$('#coverWrapper').append('<button title="choose cover" type="button"><img src=' + data.items[i].volumeInfo.imageLinks.thumbnail + '>' +
-	    			'<p class="title" style="display:none">' + data.items[i].volumeInfo.title + '</p>' +
-	    			'<p class="author" style="display:none"><em>' + data.items[i].volumeInfo.authors[0] + '</em></p></button>');
-	    		} catch(e) {j+=1}
-	    		if (data.items[data.items.length - 1] === data.items[i]) {
-	    			break;
-	    		}
-	    	}
-	    	$('#coverWrapper').append('<button id="noCover" type="button">No Cover</button>');
-	    	$('#coverWrapper').append('<div style="height: 100px"></div>')
-	    	$('#covers').fadeIn(200, function(){/*animation complete*/});
-	    }
-	    //jQuery AJAX call to retrieve JSON from API
-	    $.getJSON(booksAPI, Options, displayCovers);
-	  }
-	  $('#title').val('');
-	  $('#author').val('');
+		// API URI with inputted values
+		var booksAPI = "https://www.googleapis.com/books/v1/volumes?q=" + title + "+inauthor:" + author;
+		var options = {
+		  format: "json"
+			}
+			//add overaly div and append book cover images in proper tags
+		function displayCovers(data) {
+			if(data.totalItems === 0) {
+				alert("No search results found. Make sure you have the correct title and author.");
+			} else {
+				for (i=0, j=6; i < j; i++) {
+					//try block in case item has no volumeInfo has no imageLinks
+					try {
+						$('#coverWrapper').append('<button title="choose cover" type="button"><img src=' + data.items[i].volumeInfo.imageLinks.thumbnail + '>' +
+						'<p class="title" style="display:none">' + data.items[i].volumeInfo.title + '</p>' +
+						'<p class="author" style="display:none"><em>' + data.items[i].volumeInfo.authors[0] + '</em></p></button>');
+					} catch(e) {j+=1}
+					if (data.items[data.items.length - 1] === data.items[i]) {
+						break;
+					}
+				}
+				$('#coverWrapper').append('<button id="noCover" type="button">No Cover</button>');
+				$('#coverWrapper').append('<div style="height: 100px"></div>')
+				$('#covers').fadeIn(200, function(){/*animation complete*/});
+			}
+		} //end displayCovers
+
+		//jQuery AJAX call to retrieve JSON from API
+		$.getJSON(booksAPI, options, displayCovers);
+
+		} //end else
+		
 	});
 });
 
@@ -175,12 +189,19 @@ $(document).on('click', '#coverWrapper img', function(){
 	//add book with 'book' ID
 	var addedInput = '<li class="book"><img class="inListCover" src=' + $(this).attr('src') + '>';
 	addBook(addedInput, $(this).siblings('.title').html(), $(this).siblings('.author').html());
-	
-	$('#coverWrapper').children().remove();
-	$('#covers').fadeOut(200, function(){/*animation complete*/});
-	$('body').removeClass('noScroll');
+	//remove displayed covers, clear input fields in Add Title menu
+	clearVals();
 });
 
+$(document).on('click', '#noCover', function(){
+	if($('#toRead').children('li').is('.empty')) {
+	  //remove 'empty list' line
+		$('#toRead').children('li').remove('.empty');
+	}
+	var addedInput = '<li class="book"><div class="inListCover"></div>';
+	addBook(addedInput, $('#title').val(), $('#author').val());
+	clearVals();
+});
 
 $(document).on('click', '.doneReadingIcon', function() {
 	var book = $(this).parent();
