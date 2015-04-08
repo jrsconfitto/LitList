@@ -1,30 +1,37 @@
 
-@media screen and (min-width: 800px){
+@media screen and (min-width: 415px) {
+	.book p {
+		width: 60%;
+		font-size: 1em;
+	}
+}
+
+@media screen and (min-width: 540px) {
+	.book p {
+		width: 65%;
+	}
+}
+
+@media screen and (min-width: 640px) {
+	.book p {
+		width: 72%;
+	}
+}
+
+@media screen and (min-width: 800px) {
 
 	header {
 		background-color: #88D8B0;
-		width: 100%;
+		height: 110px;
 		border-bottom: 5px solid #ffcc5c;
-		position: relative;
 		box-shadow-bottom: none;
     	-moz-box-shadow: none;
     	-webkit-box-shadow: none;
 	}
 
 	header h1 {
-		width: 95%;
-		height: 50px;
-		margin: 0;
-		padding: 5px 0 11px 15px;
-		font-size: 2.8125em;
-		font-family: 'Quicksand', sans-serif;
-	}
-
-	header a {
-		visibility: visible;
-		text-decoration: none;
-		font-family: 'Quicksand', sans-serif;
-		position: absolute;
+		padding: 15px 0 11px 15px;
+		font-size: 4em;
 	}
 
 	.mobileMenuIcon {
@@ -32,16 +39,37 @@
 	}
 
 	.logIn {
-		right: 105px;
-		bottom: 20px;
-		padding-right: 20px;
-		border-right: 2px solid;
-		margin-right: 3px;
+		right: 132px;
+		bottom: 60px;
+		/*border-right: 2px solid;*/
+		margin-right: 23px;
 	}
 
 	.signUp {
 		right: 20px;
-		bottom: 20px;
+		bottom: 60px;
+	}
+
+	header p {
+		right: 130px;
+		bottom: 60px;
+		margin:0;
+	}
+
+	.logIn,
+	.signUp,
+	header p {
+		visibility: visible;
+		text-decoration: none;
+		font-family: 'Quicksand', sans-serif;
+		position: absolute;
+		color: #fff;
+		font-size: 1.4em;
+	}
+
+	.logIn:hover,
+	.signUp:hover {
+		text-decoration: underline;
 	}
 
 	.topNav {
@@ -58,10 +86,11 @@
 	.topNav a {
 		visibility: visible;
 		display: inline-block;
+		width: 130px;
 		padding: 9px 12px 13px;
 		text-decoration: none;
 		height: 18px;
-		font-size: 15px;
+		font-size: 20px;
 		font-family: 'Maven Pro', sans-serif;
 		color: #fff;
 		border-left: 1px solid #000;
@@ -84,6 +113,26 @@
 	#toRead,
 	#booksRead {
 		margin-top: 100px;
+	}
+
+	.book p {
+		width: 77%;
+		font-size: 1.1em;
+	}
+
+	.doneReadingIcon img {
+	  width: 24px;
+	  height: 30px; 
+	}
+
+	.readIcon img {
+		width: 30px;
+		height: 30px;
+	}
+
+	.removeIcon img {
+		width: 30px;
+		height: 30px;
 	}
 
 }
@@ -116,4 +165,19 @@
 		max-width: none;
 	}
 
+	.book p {
+		width: 65%;
+	}
+
+
+	#addTitleBox {
+		margin: 150px auto 0;
+	}
+
+} 
+
+@media screen and (min-width: 1500px) {
+	.book p {
+		width: 75%;
+	}
 } 

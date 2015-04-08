@@ -14,7 +14,6 @@ body {
 }
 
 header {
-	background-color: #88D8B0;
 	width: 100%;
 	height: 68px;
 	position: relative;
@@ -30,7 +29,7 @@ header h1 {
 	margin: 0;
 	padding: 5px 0 11px 15px;
 	font-size: 2.8125em;
-	font-family: 'Quicksand', sans-serif;
+	font-family: 'Quicksand', cursive;
 }
 
 .mobileMenuIcon {
@@ -116,7 +115,7 @@ header a {
 
 #toRead,
 #booksRead {
-	width: 85%;
+	width: 93%;
 	margin: 60px auto 0;
 	padding: 0;
 	list-style-type: none;
@@ -179,22 +178,31 @@ ul li:nth-child(2) {
 	background-color: #e5e5e5;
 	border-top: 1px solid #bdbdbd;
 	position: relative;
+	overflow: hidden;
 }
 
 .book p,
 .empty p {
 	display: inline-block;
-	width: 70%;
+	width: 55%;
 	font-family: 'Maven Pro', sans-serif;
-	font-size: 1.1em;
-	margin: 0;
 	padding: 7px 0 7px 15px;
+}
+
+.empty p {
+	margin: 10px 0;
+	font-size: 1.1em;
+}
+
+.book p {
+	margin: 0 0 0 50px;
+	font-size: 0.9em;
 }
 
 .readIcon, .doneReadingIcon {
 	position: absolute;
-	right: 14px;
-	bottom: 16px;
+	right: 8px;
+	bottom: 15px;
 	background-color: #bdbdbd;
 	border-style: none;
 	border-radius: 3px;
@@ -202,34 +210,35 @@ ul li:nth-child(2) {
 
 .inListCover {
   margin: 0 10px 0 2px;
-  height: 69px;
+  height: 100%;
   width: 50px;
-  float: left;
+  position: absolute;
+  left:0;
 }
 
 .readIcon img {
-	width:30px;
-	height: 30px;
+	width: 26px;
+	height: 26px;
 	padding-top: 4px;
 }
 
 .doneReadingIcon img {
-  width: 24px;
-  height: 30px;
+  width: 20px;
+  height: 25px;
   padding-top: 4px;
 }
 
 .removeIcon {
 	position: absolute;
-	right: 57px;
-	bottom: 17px;
+	right: 50px;
+	bottom: 15px;
 	border-style: none;
 	background-color: #e5e5e5;
 }
 
 .removeIcon img {
-	width: 30px;
-	height: 30px;
+	width: 26px;
+	height: 26px;
 	margin-bottom: 1px;
 }
 
@@ -282,7 +291,8 @@ footer {
 	width: 35%;
 	height: 375px;
 	max-width: 345px;
-	margin: 7% auto 0;
+	min-width: 290px;
+	margin: 100px auto 0;
 	border-radius: 10px;
 	font-family: 'Maven Pro' sans-serif;
 }
