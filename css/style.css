@@ -4,8 +4,6 @@
 
 
 body {
-	margin: 0;
-	background-color: #fff5ce;
 	font-size: 1em;
 }
 
@@ -17,46 +15,52 @@ header {
 	width: 100%;
 	height: 68px;
 	position: relative;
-	background-color: #ff6f69;
-	box-shadow-bottom: 0px 2px 4px #242424;
-    -moz-box-shadow: 0px 2px 4px #242424;
-    -webkit-box-shadow: 0px 2px 4px #242424;
+	
+}
+
+.mainHeaderImg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 10px;
+	width: 75px;
+	height: 75px;
 }
 
 header h1 {
-	width: 95%;
+	width: 35%;
 	height: 51px;
-	margin: 0;
-	padding: 5px 0 11px 15px;
-	font-size: 2.8125em;
-	font-family: 'Quicksand', cursive;
+	margin: 0 0 0 80px;
+	padding: 15px 0 11px 15px;
+	font-size: 3.5em;
+	font-family: 'Reenie Beanie', cursive;
 }
 
 .mobileMenuIcon {
-	background-color: #ff6f69;
 	position: absolute;
-	height: 50px;
-	right: 20px;
-	top: 12px;
+	height: 35px;
+	right: 10px;
+	top: 20px;
 	margin: 0;
 	padding: 0;
 	border: none;
 }
 
 .mobileMenuIcon img {
-	width: 46px;
-	height: 50px;
+	background-color: #fff;
+	height: 35px;
 }
 
 #mobileNav {
 	margin:0;
 	height: 100%;
-	width: 300px;
+	width: 260px;
 	background-color: #1C1C1C;
 	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: 5;
+	overflow-y: auto;
 	-moz-animation-duration: 0.5s;
 	-webkit-animation-duration: 0.5s;
 }
@@ -80,8 +84,8 @@ header h1 {
 	height: 100%;
 	margin: 0;
 	padding: 13px 0;
-	font-size: 2em;
-	font-family: 'Quicksand', sans-serif;
+	font-size: 1.7em;
+	font-family: 'Indie Flower', sans-serif;
 	color: #DADADA;
 	text-decoration: none;
 }
@@ -109,6 +113,10 @@ header a {
 	visibility: hidden;
 }
 
+#topDivider {
+	width: 100%;
+}
+
 /*-----------------------
 	BOOK LISTS
 ------------------------*/
@@ -116,53 +124,63 @@ header a {
 #toRead,
 #booksRead {
 	width: 93%;
-	margin: 60px auto 0;
 	padding: 0;
 	list-style-type: none;
 }
 
-#booksRead li {
-	opacity: 0.75;
+#toRead {
+	margin: 100px auto 0;
+}
+
+#booksRead {
+	margin: 75px auto 0;
 }
 
 #booksRead .listHeader {
 	opacity: 1;
 }
 
-.listHeader {
-	background-color: #bdbdbd; 	/* <li>s below header can be #e5e5e5 */
-	border-radius: 5px 5px 0 0;
-	border-top: 1px solid #a3a3a3;
-	border-left: 1px solid #a3a3a3;
-	border-right: 1px solid #a3a3a3;
-	box-shadow-bottom: 0px 1px 3px #242424;
-	-moz-box-shadow: 0px 1px 3px #242424;
-    -webkit-box-shadow: 0px 1px 3px #242424;
+#booksRead li {
+	opacity: 0.75;
 }
 
 .listHeader p {
-	font-family: 'Quicksand', sans-serif;
-	font-size: 1.1em;
+	text-align: center;
+	font-family: 'Reenie Beanie', cursive;
+	font-size: 2.5em;
 	margin-top: 15px;
 	margin-bottom: 0;
 	padding-left: 15px;
-	position: relative;
+}
+
+.headerLine {
+	width: 100%;
 }
 
 .listHeader a:hover {
 	cursor: pointer;
 }
 
-.listHeader button {
-	margin: 0 auto;
-	position: absolute;
-	right: 18px;
-	top: -4px;
+#addTitle {
+	margin: 20px 0 0 30px;
+	border: none;
+	background-color: #fff;
 	cursor: pointer;
 }
 
+#addTitle img {
+	width: 40px;
+	height: 40px;
+	border-radius: 25px;
+	transition: background-color 0.5s;
+}
+
+#addTitle img:hover {
+	background-color: lightgrey;
+	transition: background-color 0.75s;
+}
+
 ul li:nth-child(2) {
-	margin: 2px auto 0;
 	border: none;
 	position: relative;
 }
@@ -174,11 +192,21 @@ ul li:nth-child(2) {
 
 .book,
 .empty {
-	padding: 2px 0 1px;
-	background-color: #e5e5e5;
-	border-top: 1px solid #bdbdbd;
+	margin-bottom: 15px;
+	padding: 5px 0;
+	border-top: 1px dashed #bdbdbd;
 	position: relative;
-	overflow: hidden;
+}
+
+.inListCover {
+  margin: 0 10px 0 12px;
+  height: 100%;
+  width: 50px;
+  position: absolute;
+  left:0;
+  -moz-box-shadow: 3px 3px 10px #888;
+  -webkit-box-shadow: 3px 3px 10px #888;
+  box-shadow: 3px 3px 10px #888;
 }
 
 .book p,
@@ -186,7 +214,7 @@ ul li:nth-child(2) {
 	display: inline-block;
 	width: 55%;
 	font-family: 'Maven Pro', sans-serif;
-	padding: 7px 0 7px 15px;
+	padding: 7px 0 7px 25px;
 }
 
 .empty p {
@@ -200,40 +228,41 @@ ul li:nth-child(2) {
 }
 
 .readIcon, .doneReadingIcon {
+	background-color: #fff;
 	position: absolute;
-	right: 8px;
-	bottom: 15px;
-	background-color: #bdbdbd;
+	bottom: 31px;
 	border-style: none;
 	border-radius: 3px;
 }
 
-.inListCover {
-  margin: 0 10px 0 2px;
-  height: 100%;
-  width: 50px;
-  position: absolute;
-  left:0;
+.readIcon {
+	right: 10px;
+}
+
+.doneReadingIcon {
+	right: 13px;
+}
+
+.removeIcon {
+	background-color: #fff;
+	position: absolute;
+	right: 10px;
+	bottom: -11px;
+	border-style: none;
 }
 
 .readIcon img {
+	
 	width: 26px;
 	height: 26px;
 	padding-top: 4px;
 }
 
 .doneReadingIcon img {
-  width: 20px;
-  height: 25px;
-  padding-top: 4px;
-}
-
-.removeIcon {
-	position: absolute;
-	right: 50px;
-	bottom: 15px;
-	border-style: none;
-	background-color: #e5e5e5;
+	background-color: #fff;
+	width: 20px;
+	height: 25px;
+	padding-top: 4px;
 }
 
 .removeIcon img {
@@ -250,6 +279,15 @@ ul li:nth-child(2) {
 .removeIcon:focus {
 	background-color: #fff;
 	outline: 0;
+}
+
+.listBottomBorder {
+	margin: auto;
+	width: 95%;
+	height: 20px;
+	-moz-box-shadow: 0 10px 5px -3px #888;
+  	-webkit-box-shadow: 0 10px 5px -3px #888;
+  	box-shadow: 0 5px 3px -3px #c1c1c1;
 }
 
 
@@ -277,13 +315,19 @@ footer {
 ------------------------*/
 .overlay {
   background: rgba(0,0,0, 0.8);
-  position: absolute;
+  position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
+  right: 0;
   height: 100%;
   width: 100%;
   display: none;
   text-align: center;
+}
+
+#firstOverlay {
+	overflow-y: auto;
 }
 
 #addTitleBox {

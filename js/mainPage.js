@@ -9,7 +9,7 @@ var readButton = '<button class="readIcon" title="Mark As Reading" type="button"
 var doneReadingButton = '<button class="doneReadingIcon" title="Mark As Read" type="button"><img src="img/doneReading.png"></button>';
 var removeButton = '<button class="removeIcon" title="Remove From List" type="button"><img src="img/remove-icon.png"></button>';
 
-var $overlay = $('<div class="overlay"></div>');
+var $overlay = $('<div id="firstOverlay" class="overlay"></div>');
 var $overlay2 = $('<div class="overlay"><ul></ul></div>');
 var $overlay3 = $('<div class="overlay"></div>');
 var $coverOverlay = $('<div id="covers" class="overlay"><div id="coverWrapper"></div></div>');
@@ -42,7 +42,7 @@ var addBook = function(addedInput, title, author) {
 	addedInput += doneReadingButton;
 	addedInput += removeButton;
 	addedInput += '</li>';
-	$('#toRead').append(addedInput);
+	$('#toRead .listHeader').after(addedInput);
 
 	$('.overlay').fadeOut(200, function() {
 	// Animation complete.
@@ -61,17 +61,17 @@ var switchList = function(book, oldList, newList) {
 	//if old list is now empty
 	if (oldList.children('li').length === 1) {
 	  	//add empty list filler and remove dud li
-		oldList.append(emptyListFiller);
+		oldList.children('.listHeader').after(emptyListFiller);
 	}
 	//if new list is To Read then append done reading button, add book to list, and remove read button
 	if (newList.is('#toRead')) {
 		book.append(doneReadingButton);
-		newList.append(book);
+		newList.children('.listHeader').after(book);
 		book.children('.readIcon').remove();
 	//or if new list is Done Reading then append Reading button, add book to list, and remove done reading button
 	} else if (newList.is('#booksRead')) {
 		book.append(readButton);
-		newList.append(book);
+		newList.children('.listHeader').after(book);
 		book.children('.doneReadingIcon').remove();
 	}
 }
@@ -80,7 +80,7 @@ var switchList = function(book, oldList, newList) {
 var deleteBook = function(book, currentList) {
 	book.remove();
 	if (currentList.children('li').length === 1) {
-		currentList.append(emptyListFiller);
+		currentList.children('.listHeader').after(emptyListFiller);
 	}
 }
 
@@ -101,8 +101,9 @@ $('#foreground').after($coverOverlay);
 
 //when mobile menu icon is clicked
 $(document).on('click', '.mobileMenuIcon', function() {
-	$overlay3.fadeIn(200, function() {/*animation complete*/});
+	$('body').addClass('noScroll');
 	$overlay3.append($mobileMenu);
+	$overlay3.fadeIn(200, function() {/*animation complete*/});
 });
 
 // when list header name is clicked

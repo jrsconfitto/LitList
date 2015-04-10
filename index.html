@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<title>litList</title>
 		<link rel="stylesheet" href="animate.css-master/animate.min.css">
-		<link href='http://fonts.googleapis.com/css?family=Quicksand|Maven+Pro|Nothing+You+Could+Do' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Quicksand|Maven+Pro|Reenie+Beanie|Indie+Flower' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/responsive.css">
@@ -14,13 +14,14 @@
 
 	<body>
 		<header>
-			<h1>LitList</h1>
+			<div class="mainHeader">
+				<img class="mainHeaderImg" src="img/book.png">
+				<h1>LitList</h1>
+			</div>
 			<button class="mobileMenuIcon" type="button"><img src="img/menu-button.png"></button>
 			<a class="logIn" href="">Log In</a>
-			<p>|</p>
 			<a class="signUp" href="">Sign Up!</a>
 		</header>
-
 		<div id="foreground">
 			<nav class="topNav">
 				<a class="selected" href="index.html">My Lists</a>
@@ -30,23 +31,29 @@
 			</nav>
 			<ul id="toRead">	<!-- to read list -->
 					<li class="listHeader">
-						<p><a role="button" class="fullList">To Read</a><button id="addTitle" title="Add Title" type="button">+</button></p>
+						<p><a role="button" class="fullList">To Read</a></p>
+						<img class="headerLine" src="img/divider.png">
 					</li>
 				<li class="empty">
 					<p id="listEmptyText">Your list is empty!</p>
 				</li>
+				<div class="listBottomBorder"></div>
+				<button id="addTitle" title="Add Title" type="button"><img src="img/plus.png"></button>
 			</ul>
 			<ul id="booksRead">	<!-- books read list -->
-					<li class="listHeader"><p><a role="button" class="fullList">Done Reading</a></p></li>
+					<li class="listHeader">
+						<p><a role="button" class="fullList">Done Reading</a></p>
+						<img class="headerLine" src="img/divider.png">
+					</li>
 				<li class="empty">
 					<p id="listEmptyText">Your list is empty!</p>
 				</li>
+				<div class="listBottomBorder"></div>
 			</ul>
 			<script src="http://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="js/mainPage.js" type="text/javascript" charset="utf-8"></script>
 		</div>
-
-		 <footer></footer>
+		<footer></footer>
 
 	</body>
 

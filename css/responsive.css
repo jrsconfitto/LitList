@@ -1,47 +1,112 @@
 
 @media screen and (min-width: 415px) {
+	
+	.mainHeaderImg {
+		width: 100px;
+		height: 100px;
+	}
+
+	header h1 {
+		font-size: 4.5em;
+		margin: 0 0 0 103px;
+	}
+
+	.mobileMenuIcon {
+		height: 50px;
+	}
+
+	.mobileMenuIcon img {
+		height: 50px;
+	}
+
 	.book p {
 		width: 60%;
 		font-size: 1em;
 	}
+
+	.readIcon, .doneReadingIcon {
+		right: 8px;
+		bottom: 15px;
+	}
+
+	.removeIcon {
+		right: 50px;
+		bottom: 15px;
+	}
 }
 
 @media screen and (min-width: 540px) {
+	
+	.mobileMenuIcon {
+		right: 28px;
+	}
+
 	.book p {
 		width: 65%;
 	}
 }
 
 @media screen and (min-width: 640px) {
+	
+	#addTitle {
+		margin-left: 50px;
+	}
+
+	#addTitle img {
+	width: 50px;
+	height: 50px;
+}
+
 	.book p {
 		width: 72%;
 	}
 }
 
+/*-----------------------
+	    800px
+------------------------*/
+
 @media screen and (min-width: 800px) {
 
 	header {
-		background-color: #88D8B0;
-		height: 110px;
-		border-bottom: 5px solid #ffcc5c;
-		box-shadow-bottom: none;
-    	-moz-box-shadow: none;
-    	-webkit-box-shadow: none;
+		margin-bottom: 20px;
+		height: 250px;
+	}
+
+	.mainHeader {
+		margin-top: 25px;
+		text-align: center;
+	}
+
+	.mainHeaderImg,
+	header h1 {
+		display: inline-block;
+	}
+
+	.mainHeaderImg {
+		position: static;
+		margin: 10px;
+		width: 200px;
+		height: 200px;
 	}
 
 	header h1 {
-		padding: 15px 0 11px 15px;
-		font-size: 4em;
+		margin: 0 0 50px;
+		padding: 15px 11px 11px 15px;
+		width: 310px;
+		height: 135px;
+		font-size: 8em;
+		overflow: hidden;
 	}
 
 	.mobileMenuIcon {
 		visibility: hidden;
 	}
-
+/* --------------------------------------------------------
 	.logIn {
 		right: 132px;
 		bottom: 60px;
-		/*border-right: 2px solid;*/
+		border-right: 2px solid;
 		margin-right: 23px;
 	}
 
@@ -50,20 +115,13 @@
 		bottom: 60px;
 	}
 
-	header p {
-		right: 130px;
-		bottom: 60px;
-		margin:0;
-	}
-
 	.logIn,
-	.signUp,
-	header p {
+	.signUp {
 		visibility: visible;
 		text-decoration: none;
 		font-family: 'Quicksand', sans-serif;
 		position: absolute;
-		color: #fff;
+		color: #000;
 		font-size: 1.4em;
 	}
 
@@ -71,28 +129,25 @@
 	.signUp:hover {
 		text-decoration: underline;
 	}
+	--------------------------------------------------------*/
 
 	.topNav {
-		margin: 0 auto 5px;
+		margin: 0 auto 150px;
 		height: 40px;
-		font-size: 0;	 /* to remove space between achors */
 		text-align: center;
-		background-color: #ff6f69;
-		box-shadow-bottom: 0px 2px 4px #242424;
-	    -moz-box-shadow: 0px 2px 4px #242424;
-	    -webkit-box-shadow: 0px 2px 4px #242424;
 	}
 
 	.topNav a {
 		visibility: visible;
 		display: inline-block;
 		width: 130px;
+		margin-right: -5px;
 		padding: 9px 12px 13px;
 		text-decoration: none;
 		height: 18px;
-		font-size: 20px;
-		font-family: 'Maven Pro', sans-serif;
-		color: #fff;
+		font-size: 1.55em;
+		font-family: 'Indie Flower', sans-serif;
+		color: #000;
 		border-left: 1px solid #000;
 		transition: background-color 0.5s;
 	}
@@ -102,22 +157,27 @@
 	}
 
 	.selected {
-		background-color: #FF928D;
+		background-color: #f0f0f0;
 	}
 
 	.topNav a:hover {
-		background-color: #FF928D;
+		background-color: #f0f0f0;
 		transition: 0.5s;
 	}
 
 	#toRead,
 	#booksRead {
+		width: 85%;
 		margin-top: 100px;
 	}
 
 	.book p {
 		width: 77%;
 		font-size: 1.1em;
+	}
+
+	.listHeader p {
+		font-size: 3.5em;
 	}
 
 	.doneReadingIcon img {
@@ -172,6 +232,10 @@
 
 	#addTitleBox {
 		margin: 150px auto 0;
+	}
+
+	footer {
+		clear: both;
 	}
 
 } 
