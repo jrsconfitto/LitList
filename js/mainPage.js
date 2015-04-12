@@ -43,45 +43,72 @@ var addBook = function(addedInput, title, author) {
 	addedInput += removeButton;
 	addedInput += '</li>';
 	$('#toRead .listHeader').after(addedInput);
-
-	$('.overlay').fadeOut(200, function() {
-	// Animation complete.
+	$('.overlay').fadeOut(200).promise().done(function() {
+		if($('#toRead').children('li').is('.empty')) {
+	  		//remove 'empty list' line
+			$('#toRead').children('li').remove('.empty');
+			$('#toRead .book:hidden').fadeTo(300, 1);
+		} else {
+			$('#toRead .book:hidden').fadeIn({ duration: 600, queue: false }).css('display', 'none').slideDown(300);
+		}
 	});
 }
 
-//function to move a book from one list to the other
-var switchList = function(book, oldList, newList) {
-	//if new list is empty
-	if (newList.children('li').is('.empty')) {
-		//remove 'empty list' line
-		newList.children('li').remove('.empty');
-	}
-	//remove book from its list
+
+var switchListAnimation = function(book, newList) {
 	book.remove();
-	//if old list is now empty
-	if (oldList.children('li').length === 1) {
-	  	//add empty list filler and remove dud li
-		oldList.children('.listHeader').after(emptyListFiller);
-	}
+	book.css({'opacity':1, 'display':'none'});
 	//if new list is To Read then append done reading button, add book to list, and remove read button
 	if (newList.is('#toRead')) {
+		book.children('.readIcon').remove();
 		book.append(doneReadingButton);
 		newList.children('.listHeader').after(book);
-		book.children('.readIcon').remove();
+		book.fadeIn({ duration: 500, queue: false }).css ('display','none').slideDown(200);
 	//or if new list is Done Reading then append Reading button, add book to list, and remove done reading button
 	} else if (newList.is('#booksRead')) {
+		book.children('.doneReadingIcon').remove();
 		book.append(readButton);
 		newList.children('.listHeader').after(book);
-		book.children('.doneReadingIcon').remove();
+		book.fadeIn({ duration: 500, queue: false }).css('display','none').slideDown(200);
 	}
+}
+
+
+//function to move a book from one list to the other
+var switchList = function(book, oldList, newList) {
+	//remove book from its list
+	book.fadeTo(400, 0, function() {
+		if (oldList.children('li').length === 2) {
+			oldList.children('.listHeader').after(emptyListFiller);
+			switchListAnimation(book, newList);
+		} else {
+			book.slideUp(200, function() {
+				switchListAnimation(book, newList);
+			});
+		}
+		//if new list is empty
+		if (newList.children('li').is('.empty')) {
+			//fade out empty list text
+			newList.children('.empty').fadeOut(200, function(){
+				//remove 'empty list' text from DOM
+				newList.children('li').remove('.empty');
+			});
+		}
+	});
 }
 
 // function to remove book from its list
 var deleteBook = function(book, currentList) {
-	book.remove();
-	if (currentList.children('li').length === 1) {
-		currentList.children('.listHeader').after(emptyListFiller);
-	}
+	book.fadeTo(300, 0, function() {
+		if (currentList.children('li').length === 2) {
+			book.remove();
+			currentList.children('.listHeader').after(emptyListFiller);
+		} else {
+			book.slideUp(300, function() {
+				book.remove();
+			});
+		}
+	});
 }
 
 var clearVals = function() {
@@ -103,7 +130,7 @@ $('#foreground').after($coverOverlay);
 $(document).on('click', '.mobileMenuIcon', function() {
 	$('body').addClass('noScroll');
 	$overlay3.append($mobileMenu);
-	$overlay3.fadeIn(200, function() {/*animation complete*/});
+	$overlay3.fadeIn(200);
 });
 
 // when list header name is clicked
@@ -111,7 +138,7 @@ $(document).on('click', '.fullList', function() {
 	// clone the ul of that list and append it to overlay2 div
 	$overlay2.children('ul').replaceWith($(this).parent().parent().parent().clone());
 	$('body').addClass('noScroll');
-	$overlay2.fadeIn(200, function() {/* Animation complete */});
+	$overlay2.fadeIn(200);
 });
 
 //keep overlay up unless user clicks outside box
@@ -123,7 +150,7 @@ $(document).click(function(event) {
     		//clone ul, get id and replace foreground ul with cloned ul
     		$('#foreground ' + list).replaceWith($('.overlay ' + list).clone());
     	}
-        $('.overlay').fadeOut(200, function() {/* Animation complete */});
+        $('.overlay').fadeOut(200);
         $('body').removeClass('noScroll');
   	}
 });
@@ -131,14 +158,14 @@ $(document).click(function(event) {
 $(document).on('click', '#addTitle', function() {
 	$('body').addClass('noScroll');
 	$overlay.append($addTitleBox);
-	$overlay.fadeIn(200, function() {/* Animation complete */});
+	$overlay.fadeIn(200);
   	$('#title').focus();
 });
 
 // retrieve book covers from web for user to select and add book (<li>) to "Read" list
 $(document).on('click', '.add', function() {
 	//function to grab book cover of added book from Google Books API
-  	$overlay.fadeOut(200, function() {/* Animation complete */});
+  	$overlay.fadeOut(200);
   	$(document).ready(function() {
 		if ($('#title').val() === "" || $('#author').val() === "") {
 			alert("please enter a Title and Author");
@@ -168,7 +195,7 @@ $(document).on('click', '.add', function() {
 				}
 				$('#coverWrapper').append('<button id="noCover" type="button">No Cover</button>');
 				$('#coverWrapper').append('<div style="height: 100px"></div>')
-				$('#covers').fadeIn(200, function(){/*animation complete*/});
+				$('#covers').fadeIn(200);
 			}
 		} //end displayCovers
 
@@ -183,26 +210,20 @@ $(document).on('click', '.add', function() {
 
 //event listener on book cover click
 $(document).on('click', '#coverWrapper img', function(){
-	if($('#toRead').children('li').is('.empty')) {
-	  //remove 'empty list' line
-		$('#toRead').children('li').remove('.empty');
-	}
 	//add book with 'book' ID
-	var addedInput = '<li class="book"><img class="inListCover" src=' + $(this).attr('src') + '>';
+	var addedInput = '<li class="book" style="display:none"><img class="inListCover" src=' + $(this).attr('src') + '>';
 	addBook(addedInput, $(this).siblings('.title').html(), $(this).siblings('.author').html());
 	//remove displayed covers, clear input fields in Add Title menu
 	clearVals();
 });
 
+
 $(document).on('click', '#noCover', function(){
-	if($('#toRead').children('li').is('.empty')) {
-	  //remove 'empty list' line
-		$('#toRead').children('li').remove('.empty');
-	}
 	var addedInput = '<li class="book"><div class="inListCover"></div>';
 	addBook(addedInput, $('#title').val(), $('#author').val());
 	clearVals();
 });
+
 
 $(document).on('click', '.doneReadingIcon', function() {
 	var book = $(this).parent();

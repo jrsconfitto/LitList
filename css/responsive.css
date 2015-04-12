@@ -48,6 +48,10 @@
 
 @media screen and (min-width: 640px) {
 	
+	.listHeader p {
+		font-size: 3.5em;
+	}
+
 	#addTitle {
 		margin-left: 50px;
 	}
@@ -142,7 +146,7 @@
 		display: inline-block;
 		width: 130px;
 		margin-right: -5px;
-		padding: 9px 12px 13px;
+		padding: 2px 12px 20px;
 		text-decoration: none;
 		height: 18px;
 		font-size: 1.55em;
@@ -176,10 +180,6 @@
 		font-size: 1.1em;
 	}
 
-	.listHeader p {
-		font-size: 3.5em;
-	}
-
 	.doneReadingIcon img {
 	  width: 24px;
 	  height: 30px; 
@@ -207,7 +207,7 @@
 	#toRead,
 	#booksRead {
 		width: 45%;
-		margin-top: 100px;
+		margin-top: 50px;
 	}
 
 	#toRead {
