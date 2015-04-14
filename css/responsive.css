@@ -72,6 +72,10 @@
 
 @media screen and (min-width: 800px) {
 
+.noScroll {
+	overflow-y: scroll;
+}
+
 	header {
 		margin-bottom: 20px;
 		height: 250px;
@@ -104,9 +108,11 @@
 	}
 
 	.mobileMenuIcon {
-		visibility: hidden;
+		display: none;
 	}
+
 /* --------------------------------------------------------
+
 	.logIn {
 		right: 132px;
 		bottom: 60px;

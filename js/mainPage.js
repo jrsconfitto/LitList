@@ -26,6 +26,7 @@ var $mobileMenu = $(
 
 var $addTitleBox = $(
 	'<div id="addTitleBox">'+
+	  	'<a class="close">&times;</a>'+
 		'<h1>Add Title</h1>'+
 		'<label for="title">Title:</label>'+
 		'<input type="text" id="title" name="book_title">'+
@@ -43,7 +44,7 @@ var addBook = function(addedInput, title, author) {
 	addedInput += removeButton;
 	addedInput += '</li>';
 	$('#toRead .listHeader').after(addedInput);
-	$('.overlay').fadeOut(200).promise().done(function() {
+	$('.overlay').fadeOut(250).promise().done(function() {
 		if($('#toRead').children('li').is('.empty')) {
 	  		//remove 'empty list' line
 			$('#toRead').children('li').remove('.empty');
@@ -141,8 +142,13 @@ $(document).on('click', '.fullList', function() {
 	$overlay2.fadeIn(200);
 });
 
+$(document).on('click', '.close', function(){
+	$('.overlay').fadeOut(250);
+    clearVals();
+});
+
 //keep overlay up unless user clicks outside box
-$(document).click(function(event) {
+$(document).click(function() {
     if($(event.target).attr('class') === 'overlay') {
     	//if overlay has ul child
     	if ($(event.target).children().is('ul')) {
@@ -150,54 +156,59 @@ $(document).click(function(event) {
     		//clone ul, get id and replace foreground ul with cloned ul
     		$('#foreground ' + list).replaceWith($('.overlay ' + list).clone());
     	}
-        $('.overlay').fadeOut(200);
-        $('body').removeClass('noScroll');
+        $('.overlay').fadeOut(250);
+       	clearVals();
   	}
 });
 
 $(document).on('click', '#addTitle', function() {
-	$('body').addClass('noScroll');
 	$overlay.append($addTitleBox);
-	$overlay.fadeIn(200);
+	// var overlayTop = $('#firstOverlay').offset().top - $(window).scrollTop();
+	// var overlayLeft = $('#firstOverlay').offset().left;
+	// $('#firstOverlay').css({position: 'fixed', left: overlayLeft + 'px', top: overlayTop + 'px'});
+	$('body').addClass('noScroll');
+	$overlay.fadeIn(250);
   	$('#title').focus();
 });
 
 // retrieve book covers from web for user to select and add book (<li>) to "Read" list
 $(document).on('click', '.add', function() {
 	//function to grab book cover of added book from Google Books API
-  	$overlay.fadeOut(200);
+  	
   	$(document).ready(function() {
 		if ($('#title').val() === "" || $('#author').val() === "") {
 			alert("please enter a Title and Author");
+			$('#title').focus();
 		} else {
+			$overlay.fadeOut(250);
 			var title = $('#title').val();
-		  var author = $('#author').val();
-		// API URI with inputted values
-		var booksAPI = "https://www.googleapis.com/books/v1/volumes?q=" + title + "+inauthor:" + author;
-		var options = {
-		  format: "json"
+		  	var author = $('#author').val();
+			// API URI with inputted values
+			var booksAPI = "https://www.googleapis.com/books/v1/volumes?q=" + title + "+inauthor:" + author;
+			var options = {
+			  format: "json"
 			}
 			//add overaly div and append book cover images in proper tags
-		function displayCovers(data) {
-			if(data.totalItems === 0) {
-				alert("No search results found. Make sure you have the correct title and author.");
-			} else {
-				for (i=0, j=6; i < j; i++) {
-					//try block in case item has no volumeInfo has no imageLinks
-					try {
-						$('#coverWrapper').append('<button title="choose cover" type="button"><img src=' + data.items[i].volumeInfo.imageLinks.thumbnail + '>' +
-						'<p class="title" style="display:none">' + data.items[i].volumeInfo.title + '</p>' +
-						'<p class="author" style="display:none"><em>' + data.items[i].volumeInfo.authors[0] + '</em></p></button>');
-					} catch(e) {j+=1}
-					if (data.items[data.items.length - 1] === data.items[i]) {
-						break;
+			function displayCovers(data) {
+				if(data.totalItems === 0) {
+					alert("No search results found. Make sure you have the correct title and author.");
+				} else {
+					for (i=0, j=6; i < j; i++) {
+						//try block in case item has no volumeInfo has no imageLinks
+						try {
+							$('#coverWrapper').append('<button title="choose cover" type="button"><img src=' + data.items[i].volumeInfo.imageLinks.thumbnail + '>' +
+							'<p class="title" style="display:none">' + data.items[i].volumeInfo.title + '</p>' +
+							'<p class="author" style="display:none"><em>' + data.items[i].volumeInfo.authors[0] + '</em></p></button>');
+						} catch(e) {j+=1}
+						if (data.items[data.items.length - 1] === data.items[i]) {
+							break;
+						}
 					}
+					$('#coverWrapper').append('<button id="noCover" type="button">No Cover</button>');
+					$('#coverWrapper').append('<div style="height: 100px"></div>')
+					$('#covers').fadeIn(250);
 				}
-				$('#coverWrapper').append('<button id="noCover" type="button">No Cover</button>');
-				$('#coverWrapper').append('<div style="height: 100px"></div>')
-				$('#covers').fadeIn(200);
-			}
-		} //end displayCovers
+			} //end displayCovers
 
 		//jQuery AJAX call to retrieve JSON from API
 		$.getJSON(booksAPI, options, displayCovers);
@@ -257,3 +268,20 @@ $(document).on('click', '.removeIcon', function() {
 	}
 	deleteBook(book, list);
 });
+
+  
+
+//make single list view larger
+
+//try using a background pattern image or subtle color (paper color)
+
+//make an about page
+
+//fix double scroll bar bug when window is narrowed with overlay
+//fix page jumping to top bug
+
+//Click an <li> to get an overlay with expanded cover and full title and
+//author (maybe pull and display book info or link to google book search
+//page)
+
+//make list sortable (click and drag)
