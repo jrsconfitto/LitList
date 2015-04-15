@@ -10,17 +10,17 @@ var doneReadingButton = '<button class="doneReadingIcon" title="Mark As Read" ty
 var removeButton = '<button class="removeIcon" title="Remove From List" type="button"><img src="img/remove-icon.png"></button>';
 
 var $overlay = $('<div id="firstOverlay" class="overlay"></div>');
-var $overlay2 = $('<div class="overlay"><ul></ul></div>');
+var $overlay2 = $('<div class="listView overlay"><ul></ul></div>');
 var $overlay3 = $('<div class="overlay"></div>');
 var $coverOverlay = $('<div id="covers" class="overlay"><div id="coverWrapper"></div></div>');
 
 var $mobileMenu = $(
 	'<nav id="mobileNav" class="animated slideInRight">'+
 		'<ul>'+
-			'<li id="firstMobileNav" class="mobileSelected"><a href="index.html">My Lists</a></li>'+
-			'<li><a href="index.html">Progress</a></li>'+
-			'<li><a href="index.html">Profile</a></li>'+
-			'<li id="lastMobileNav"><a href="index.html">About</a></li>'+
+			'<li id="firstMobileNav"><a href="index.html">My Lists</a></li>'+
+			'<li><a href="#">Progress</a></li>'+
+			'<li><a href="#">Profile</a></li>'+
+			'<li id="lastMobileNav"><a href="about.html">About</a></li>'+
 		'</ul>'+
 	'</nav>');
 
@@ -116,7 +116,9 @@ var clearVals = function() {
 	$('#title').val('');
 	$('#author').val('');
 	$('#coverWrapper').children().remove();
-	$('body').removeClass('noScroll');
+	$('#mobileNav li a').removeClass('mobileSelected');
+	$('body').removeClass('noScroll singleListNoScroll');
+
 }
 
 //=========================================================================================
@@ -131,6 +133,12 @@ $('#foreground').after($coverOverlay);
 $(document).on('click', '.mobileMenuIcon', function() {
 	$('body').addClass('noScroll');
 	$overlay3.append($mobileMenu);
+	$('#mobileNav li a').each(function() {
+		var i = document.location.href.lastIndexOf("/");
+        if ($(this).attr('href') === location.href.substr(i + 1)) {
+            $(this).addClass('mobileSelected');
+        }
+    });
 	$overlay3.fadeIn(200);
 });
 
@@ -138,7 +146,7 @@ $(document).on('click', '.mobileMenuIcon', function() {
 $(document).on('click', '.fullList', function() {
 	// clone the ul of that list and append it to overlay2 div
 	$overlay2.children('ul').replaceWith($(this).parent().parent().parent().clone());
-	$('body').addClass('noScroll');
+	$('body').addClass('singleListNoScroll');
 	$overlay2.fadeIn(200);
 });
 
@@ -149,7 +157,7 @@ $(document).on('click', '.close', function(){
 
 //keep overlay up unless user clicks outside box
 $(document).click(function() {
-    if($(event.target).attr('class') === 'overlay') {
+    if($(event.target).is('.overlay')) {
     	//if overlay has ul child
     	if ($(event.target).children().is('ul')) {
     		var list = '#' + $('.overlay').children().attr('id');

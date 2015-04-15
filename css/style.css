@@ -2,7 +2,6 @@
 	BASIC STYLES
 ------------------------*/
 
-
 body {
 	font-size: 1em;
 }
@@ -35,6 +34,12 @@ header h1 {
 	padding: 15px 0 11px 15px;
 	font-size: 3.5em;
 	font-family: 'Reenie Beanie', cursive;
+}
+
+header h1 a {
+  visibility: visible;
+  text-decoration: none;
+  color: #000;
 }
 
 .mobileMenuIcon {
@@ -377,6 +382,10 @@ footer {
 	SINGLE LIST OVERLAY
 ------------------------*/
 
+.listView {
+	overflow-y: auto;
+}
+
 #foreground .overlay ul {
 	background-color: #fff;
 	width: 90%;
@@ -384,8 +393,56 @@ footer {
 	padding: 15px 15px 40px;
 	border-radius:10px;
 	float: none;
-	max-width: 830px;
 }
+
+.overlay .book {
+	height: 140px;
+}
+
+.overlay .inListCover {
+	width: 100px;
+}
+
+.overlay .book p {
+  margin: 10px 0;
+	font-size: 1.3em;
+	text-align: initial;
+}
+
+.overlay .book p:first-of-type {
+	margin: 35px 0 0 ;
+}
+
+.overlay .removeIcon {
+  right: 90px;
+  bottom: 33px;
+}
+
+.overlay .removeIcon img {
+  width: 45px;
+  height: 45px;
+}
+
+.overlay .doneReadingIcon {
+  right: 28px;
+  bottom: 35px;
+}
+
+.overlay .doneReadingIcon img {
+  width: 34px;
+  height: 42px;
+}
+
+.overlay .readIcon {
+  right: 20px;
+  bottom: 31px;
+}
+
+.overlay .readIcon img {
+  width: 45px;
+  height: 45px;
+}
+
 
 /*-----------------------
 	COVERS OVERLAY
@@ -423,4 +480,23 @@ footer {
 	font-size: 1.2em;
 	font-family: 'Maven Pro', sans-serif;
 	border-radius: 8px;
+}
+
+/*-----------------------
+    ABOUT PAGE
+------------------------*/
+
+#aboutHeader {
+	width: 65%;
+	max-width: 750px;
+	margin: 50px auto 0;
+	font-family: 'Maven Pro';
+}
+
+#aboutText {
+	width: 65%;
+	max-width: 750px;
+	margin: 50px auto 0;
+	font-size: 1.1em;
+	font-family: 'Maven Pro';
 }

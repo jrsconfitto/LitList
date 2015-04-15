@@ -72,9 +72,15 @@
 
 @media screen and (min-width: 800px) {
 
-.noScroll {
-	overflow-y: scroll;
-}
+	.noScroll {
+		overflow-y: scroll;
+	}
+
+	.singleListNoScroll {
+		position: fixed;
+		overflow-y: auto;
+		width: 100%;
+	}
 
 	header {
 		margin-bottom: 20px;
@@ -188,7 +194,7 @@
 
 	.doneReadingIcon img {
 	  width: 24px;
-	  height: 30px; 
+	  height: 30px;
 	}
 
 	.readIcon img {
@@ -244,10 +250,10 @@
 		clear: both;
 	}
 
-} 
+}
 
 @media screen and (min-width: 1500px) {
 	.book p {
 		width: 75%;
 	}
-} 
+}
