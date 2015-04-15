@@ -276,20 +276,3 @@ $(document).on('click', '.removeIcon', function() {
 	}
 	deleteBook(book, list);
 });
-
-  
-
-//make single list view larger
-
-//try using a background pattern image or subtle color (paper color)
-
-//make an about page
-
-//fix double scroll bar bug when window is narrowed with overlay
-//fix page jumping to top bug
-
-//Click an <li> to get an overlay with expanded cover and full title and
-//author (maybe pull and display book info or link to google book search
-//page)
-
-//make list sortable (click and drag)
