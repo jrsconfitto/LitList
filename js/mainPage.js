@@ -144,10 +144,12 @@ $(document).on('click', '.mobileMenuIcon', function() {
 
 // when list header name is clicked
 $(document).on('click', '.fullList', function() {
-	// clone the ul of that list and append it to overlay2 div
-	$overlay2.children('ul').replaceWith($(this).parent().parent().parent().clone());
-	$('body').addClass('singleListNoScroll');
-	$overlay2.fadeIn(200);
+	if($(window).width() > 1007) {
+		// clone the ul of that list and append it to overlay2 div
+		$overlay2.children('ul').replaceWith($(this).parent().parent().parent().clone());
+		$('body').addClass('singleListNoScroll');
+		$overlay2.fadeIn(200);
+	}
 });
 
 $(document).on('click', '.close', function(){
@@ -246,7 +248,7 @@ $(document).on('click', '#noCover', function(){
 
 $(document).on('click', '.doneReadingIcon', function() {
 	var book = $(this).parent();
-	if($(this).parent().parent().parent().attr('class') === 'overlay') {
+	if($(this).parent().parent().parent().attr('class') === 'listView overlay') {
 		switchList(book, $('.overlay #toRead'), $('#booksRead'));
 	} else {
 		switchList(book, $('#toRead'), $('#booksRead'));
@@ -256,7 +258,7 @@ $(document).on('click', '.doneReadingIcon', function() {
 
 $(document).on('click', '.readIcon', function(){
 	var book = $(this).parent();
-	if($(this).parent().parent().parent().attr('class') === 'overlay') {
+	if($(this).parent().parent().parent().attr('class') === 'listView overlay') {
 		switchList(book, $('.overlay #booksRead'), $('#toRead'));
 	} else {
 		switchList(book, $('#booksRead'), $('#toRead'));
@@ -267,7 +269,7 @@ $(document).on('click', '.readIcon', function(){
 $(document).on('click', '.removeIcon', function() {
 	var book = $(this).parent();
 	//if button is from 'overlay' div
-	if($(this).parent().parent().parent().attr('class') === 'overlay') {
+	if($(this).parent().parent().parent().attr('class') === 'listView overlay') {
 	  //add overlay class to list var
 	  var list = $('.overlay #' + book.parent().attr('id'));
 	} else {

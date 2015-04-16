@@ -1,6 +1,10 @@
-uList
-============
+LitList
+========
 
-This app is intended for users who want to keep track of reading goals. uList allows
-users to create an easily editable and sortable reading list. uList will also help
-its users track reading progress over time.
+This web app allows users to create and edit their own personal reading list.
+
+To get started, open index.html then click the plus icon at the bottom of the empty To Read list to add your first book. 
+
+If on a wide display device, click the To Read or Done Reading list headers to see an expanded view of each list.
+
+The Progress and Profile links in the navigation menus are for future additons to the site and do not currently lead anywhere.

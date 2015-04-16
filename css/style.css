@@ -3,6 +3,7 @@
 ------------------------*/
 
 body {
+
 	font-size: 1em;
 }
 
@@ -146,6 +147,11 @@ header a {
 	list-style-type: none;
 }
 
+.fullList {
+	background-color: #fff;
+	border: none;
+}
+
 #toRead {
 	margin: 100px auto 0;
 }
@@ -171,12 +177,16 @@ header a {
 	padding-left: 15px;
 }
 
-.headerLine {
-	width: 100%;
+.listHeader button:focus {
+	outline: 0;
 }
 
-.listHeader a:hover {
-	cursor: pointer;
+.listHeader button:hover {
+	cursor: default;
+}
+
+.headerLine {
+	width: 100%;
 }
 
 #addTitle {
@@ -314,7 +324,18 @@ ul li:nth-child(2) {
 ------------------------*/
 
 footer {
-  height: 150px;
+  height: 85px;
+  width: 100%;
+  border-top: 2px solid #808080;
+  background-color: rgb(207, 207, 207);
+  margin: 180px auto 0;
+}
+
+footer p {
+	text-align: center;
+	margin: 26px 0 0;
+	font-family: 'Maven Pro';
+	color: #929292;
 }
 
 
@@ -381,10 +402,6 @@ footer {
 /*-----------------------
 	SINGLE LIST OVERLAY
 ------------------------*/
-
-.listView {
-	overflow-y: auto;
-}
 
 #foreground .overlay ul {
 	background-color: #fff;
@@ -489,7 +506,7 @@ footer {
 #aboutHeader {
 	width: 65%;
 	max-width: 750px;
-	margin: 50px auto 0;
+	margin: 120px auto 0;
 	font-family: 'Maven Pro';
 }
 
