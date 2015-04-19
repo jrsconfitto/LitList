@@ -36,6 +36,7 @@ var $addTitleBox = $(
 	'</div>');
 
 //================FUNCTIONS===============================================
+// Gets the books from the passed list out of the UI and returns them as an array of data objects
 var getBooksInList = function(listSelector) {
 	var booksInList = $(listSelector);
 
@@ -57,13 +58,15 @@ var getBooksInList = function(listSelector) {
 	});
 };
 
-var saveBookListsToStorage = function(title, author, coverImageSrc) {
+// Saves books in each list to local storage
+var saveBookListsToStorage = function() {
 	var toRead = getBooksInList('#toRead .book');
 	var read = getBooksInList('#booksRead .book');
 	localStorage.setItem('toRead', JSON.stringify(toRead));
 	localStorage.setItem('read', JSON.stringify(read));
 };
 
+// Retrieves both lists of books from localStorage and returns both in a single object
 var getBooksFromStorage = function() {
 	var toRead = localStorage.getItem('toRead') || [];
 	var read = localStorage.getItem('read') || [];
