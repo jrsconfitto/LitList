@@ -36,10 +36,56 @@ var $addTitleBox = $(
 	'</div>');
 
 //================FUNCTIONS===============================================
+// Gets the books from the passed list out of the UI and returns them as an array of data objects
+var getBooksInList = function(listSelector) {
+	var booksInList = $(listSelector);
+
+	if (booksInList.length === 0) {
+		return [];
+	}
+
+	return $.map(booksInList, function(book) {
+		var $book = $(book);
+		var title = $book.find('.title').text();
+		var author = $book.find('.author').text();
+		var coverImageSrc = $book.find('.inListCover').attr('src');
+
+		return {
+			title: title,
+			author: author,
+			coverImageSrc: coverImageSrc
+		};
+	});
+};
+
+// Saves books in each list to local storage
+var saveBookListsToStorage = function() {
+	var toRead = getBooksInList('#toRead .book');
+	var read = getBooksInList('#booksRead .book');
+	localStorage.setItem('toRead', JSON.stringify(toRead));
+	localStorage.setItem('read', JSON.stringify(read));
+};
+
+// Retrieves both lists of books from localStorage and returns both in a single object
+var getBooksFromStorage = function() {
+	var toRead = localStorage.getItem('toRead') || [];
+	var read = localStorage.getItem('read') || [];
+
+	return {
+		toRead: toRead,
+		read: read
+	}
+};
 
 // function to add book to To Read list
-var addBook = function(addedInput, title, author) {
-	addedInput += '<p>' + title + '</p><p style="text-indent: 1em">-' + author +'</p>';
+var addBookToReadList = function(title, author, coverImageSrc) {
+	var addedInput;
+	if (coverImageSrc && coverImageSrc !== '') {
+		addedInput = '<li class="book" style="display:none"><img class="inListCover" src=' + coverImageSrc + '>';
+	} else {
+		addedInput = '<li class="book"><div class="inListCover"></div>';
+	}
+	addedInput += '<p class="title">' + title + '</p><p style="text-indent: 1em">-<em class="author">' + author +'</em></p>';
 	addedInput += doneReadingButton;
 	addedInput += removeButton;
 	addedInput += '</li>';
@@ -53,6 +99,10 @@ var addBook = function(addedInput, title, author) {
 			$('#toRead .book:hidden').fadeIn({ duration: 600, queue: false }).css('display', 'none').slideDown(300);
 		}
 	});
+
+	if ('localStorage' in window) {
+		saveBookListsToStorage();
+	}
 }
 
 
@@ -184,7 +234,7 @@ $(document).on('click', '#addTitle', function() {
 // retrieve book covers from web for user to select and add book (<li>) to "Read" list
 $(document).on('click', '.add', function() {
 	//function to grab book cover of added book from Google Books API
-  	
+
   	$(document).ready(function() {
 		if ($('#title').val() === "" || $('#author').val() === "") {
 			alert("please enter a Title and Author");
@@ -224,24 +274,27 @@ $(document).on('click', '.add', function() {
 		$.getJSON(booksAPI, options, displayCovers);
 
 		} //end else
-		
+
 	});
 });
 
 
 //event listener on book cover click
 $(document).on('click', '#coverWrapper img', function(){
+	var title = $(this).siblings('.title').html();
+	var author = $(this).siblings('.author').html();
+	var coverImageSrc = $(this).attr('src');
 	//add book with 'book' ID
-	var addedInput = '<li class="book" style="display:none"><img class="inListCover" src=' + $(this).attr('src') + '>';
-	addBook(addedInput, $(this).siblings('.title').html(), $(this).siblings('.author').html());
+	addBookToReadList(title, author, coverImageSrc);
 	//remove displayed covers, clear input fields in Add Title menu
 	clearVals();
 });
 
 
 $(document).on('click', '#noCover', function(){
-	var addedInput = '<li class="book"><div class="inListCover"></div>';
-	addBook(addedInput, $('#title').val(), $('#author').val());
+	var title = $('#title').val();
+	var author = $('#author').val();
+	addBookToReadList(title, author);
 	clearVals();
 });
 
