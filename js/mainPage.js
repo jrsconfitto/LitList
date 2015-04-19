@@ -38,7 +38,13 @@ var $addTitleBox = $(
 //================FUNCTIONS===============================================
 
 // function to add book to To Read list
-var addBook = function(addedInput, title, author) {
+var addBookToReadList = function(title, author, coverImageSrc) {
+	var addedInput;
+	if (coverImageSrc && coverImageSrc !== '') {
+		addedInput = '<li class="book" style="display:none"><img class="inListCover" src=' + coverImageSrc + '>';
+	} else {
+		addedInput = '<li class="book"><div class="inListCover"></div>';
+	}
 	addedInput += '<p>' + title + '</p><p style="text-indent: 1em">-' + author +'</p>';
 	addedInput += doneReadingButton;
 	addedInput += removeButton;
@@ -184,7 +190,7 @@ $(document).on('click', '#addTitle', function() {
 // retrieve book covers from web for user to select and add book (<li>) to "Read" list
 $(document).on('click', '.add', function() {
 	//function to grab book cover of added book from Google Books API
-  	
+
   	$(document).ready(function() {
 		if ($('#title').val() === "" || $('#author').val() === "") {
 			alert("please enter a Title and Author");
@@ -224,24 +230,27 @@ $(document).on('click', '.add', function() {
 		$.getJSON(booksAPI, options, displayCovers);
 
 		} //end else
-		
+
 	});
 });
 
 
 //event listener on book cover click
 $(document).on('click', '#coverWrapper img', function(){
+	var title = $(this).siblings('.title').html();
+	var author = $(this).siblings('.author').html();
+	var coverImageSrc = $(this).attr('src');
 	//add book with 'book' ID
-	var addedInput = '<li class="book" style="display:none"><img class="inListCover" src=' + $(this).attr('src') + '>';
-	addBook(addedInput, $(this).siblings('.title').html(), $(this).siblings('.author').html());
+	addBookToReadList(title, author, coverImageSrc);
 	//remove displayed covers, clear input fields in Add Title menu
 	clearVals();
 });
 
 
 $(document).on('click', '#noCover', function(){
-	var addedInput = '<li class="book"><div class="inListCover"></div>';
-	addBook(addedInput, $('#title').val(), $('#author').val());
+	var title = $('#title').val();
+	var author = $('#author').val();
+	addBookToReadList(title, author);
 	clearVals();
 });
 
