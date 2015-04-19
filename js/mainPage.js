@@ -36,6 +36,43 @@ var $addTitleBox = $(
 	'</div>');
 
 //================FUNCTIONS===============================================
+var getBooksInList = function(listSelector) {
+	var booksInList = $(listSelector);
+
+	if (booksInList.length === 0) {
+		return [];
+	}
+
+	return $.map(booksInList, function(book) {
+		var $book = $(book);
+		var title = $book.find('.title').text();
+		var author = $book.find('.author').text();
+		var coverImageSrc = $book.find('.inListCover').attr('src');
+
+		return {
+			title: title,
+			author: author,
+			coverImageSrc: coverImageSrc
+		};
+	});
+};
+
+var saveBookListsToStorage = function(title, author, coverImageSrc) {
+	var toRead = getBooksInList('#toRead .book');
+	var read = getBooksInList('#booksRead .book');
+	localStorage.setItem('toRead', JSON.stringify(toRead));
+	localStorage.setItem('read', JSON.stringify(read));
+};
+
+var getBooksFromStorage = function() {
+	var toRead = localStorage.getItem('toRead') || [];
+	var read = localStorage.getItem('read') || [];
+
+	return {
+		toRead: toRead,
+		read: read
+	}
+};
 
 // function to add book to To Read list
 var addBookToReadList = function(title, author, coverImageSrc) {
@@ -45,7 +82,7 @@ var addBookToReadList = function(title, author, coverImageSrc) {
 	} else {
 		addedInput = '<li class="book"><div class="inListCover"></div>';
 	}
-	addedInput += '<p>' + title + '</p><p style="text-indent: 1em">-' + author +'</p>';
+	addedInput += '<p class="title">' + title + '</p><p style="text-indent: 1em">-<em class="author">' + author +'</em></p>';
 	addedInput += doneReadingButton;
 	addedInput += removeButton;
 	addedInput += '</li>';
@@ -59,6 +96,10 @@ var addBookToReadList = function(title, author, coverImageSrc) {
 			$('#toRead .book:hidden').fadeIn({ duration: 600, queue: false }).css('display', 'none').slideDown(300);
 		}
 	});
+
+	if ('localStorage' in window) {
+		saveBookListsToStorage();
+	}
 }
 
 
